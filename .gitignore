@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Entorno Virtual (Crucial)
+.venv/
+venv/
+ENV/
+env/
+
+# Variables de Entorno (¡No subas tus claves de SUNARP!)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# JetBrains / PyCharm
+# Bloqueamos la carpeta de configuración para que no imponga sus reglas a otros
+.idea/
+*.iws
+out/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Logs y bases de datos temporales
+*.log
+*.sqlite

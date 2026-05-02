@@ -1,0 +1,5 @@
+fastapi~=0.136.1
+sqlalchemy
+pydantic
+pydantic-settings
+uvicorn
