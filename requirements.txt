@@ -5,3 +5,6 @@ pydantic-settings
 uvicorn
 starlette
 httpx
+jinja2
+weasyprint
+fpdf2
