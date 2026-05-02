@@ -1,5 +1,5 @@
 import re
-from fastapi import HTTPException, status
+from app.controller.dtos.plateResponse import PlateResponse
 from app.repository.plateRepository import PlateRepository
 
 
@@ -10,31 +10,40 @@ class PlateService:
 
     def get_plate_data(self, numero: str):
         if not numero or not re.match(self.validators, numero):
-            raise HTTPException(
-                status_code = status.HTTP_400_BAD_REQUEST,
-                detail = "El formato de la placa es inválido"
+            return PlateResponse(
+                numPlaca = numero,
+                response = "El formato de la placa es inválido",
+                status = "BAD_REQUEST"
             )
 
         try:
             plate = self.repository.find_by_numero_placa(numero.upper().strip())
 
             if not plate:
-                raise HTTPException(
-                    status_code = status.HTTP_404_NOT_FOUND,
-                    detail = "La placa no existe en los registros"
+                return PlateResponse(
+                    numPlaca = numero,
+                    response = "La placa no existe en los registros",
+                    status = "NOT_FOUND",
                 )
 
-            plate.response = "Operación correcta"
-            plate.status = "OK"
-
-            return plate
-
-        except HTTPException as h:
-            return h
+            return PlateResponse(
+                numPlaca = plate.numero_placa,
+                marca = plate.marca,
+                modelo = plate.modelo,
+                color = plate.color,
+                anioFabricacion = int(plate.anio_fabricacion),
+                propietario = plate.propietario_dni,
+                estado = plate.estado,
+                fechaRegistro = plate.fecha_registro,
+                observaciones = plate.observaciones,
+                response = "Operación Correcta",
+                status = "OK",
+            )
 
         except Exception as ex:
             print(f"Error crítico al consultar placa {numero}:{str(ex)}")
-            raise HTTPException(
-                status_code = status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail = "Hubo un error en la operación"
+            return PlateResponse(
+                numPlaca = numero,
+                response = "Hubo un error en la operación",
+                status = "INTERNAL_SERVER_ERROR"
             )

@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Numeric, TIMESTAMP, text
-from app.repository.db.session import Base
+from app.config.session import Base
 
 class Plate(Base):
     __tablename__ = 'placa'
