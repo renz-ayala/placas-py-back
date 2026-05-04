@@ -18,3 +18,11 @@ class PlateResponse(BaseModel):
     model_config = {
         "from_attributes": True
     }
+
+    @classmethod
+    def error(cls, numero: str, mensaje: str, status_str: str) -> PlateResponse:
+        return cls(
+            numPlaca=numero,
+            response=mensaje,
+            status=status_str,
+        )

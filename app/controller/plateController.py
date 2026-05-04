@@ -20,11 +20,7 @@ def verify(plate: PlateRequest, db: Session = Depends(get_db)):
     captcha_service = CaptchaService()
 
     if not captcha_service.verify_captcha(plate.idTransaction):
-        response = PlateResponse(
-            numPlaca = plate.numPlaca,
-            response="El captcha es inválido/expirado",
-            status="BAD_REQUEST"
-        )
+        response = PlateResponse.error(plate.numPlaca,"El captcha es inválido/expirado","BAD_REQUEST")
         return JSONResponse(
             status_code = status.HTTP_400_BAD_REQUEST,
             content = response.model_dump(by_alias=True, mode="json")
